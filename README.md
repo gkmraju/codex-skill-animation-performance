@@ -1,58 +1,86 @@
+<div align="center">
 
-<a href="http://aiforui.dev/">
-<img width="360" height="202" alt="opengraph-image 2" src="https://github.com/user-attachments/assets/84fca9a6-0b2b-4927-8f48-f3ce194a5c47" />
-</a>
+# 🧩 Codex Animation Performance
 
-# Skills For Designers and Engineers
+### Diagnose costly web motion and preserve interactive behavior.
 
-[![skills.sh](https://skills.sh/b/emilkowalski/skills)](https://skills.sh/emilkowalski/skills)
+[![Codex skill](https://img.shields.io/badge/Codex-animation_performance-6366f1?style=flat-square)](skills/animation-performance/SKILL.md)
+[![MIT](https://img.shields.io/badge/license-MIT-0891b2?style=flat-square)](LICENSE)
+[![Validate](https://github.com/gkmraju/codex-skill-animation-performance/actions/workflows/validate.yml/badge.svg)](https://github.com/gkmraju/codex-skill-animation-performance/actions/workflows/validate.yml)
 
-For designers and engineers to help them build better user interfaces.
+[Quick start](#quick-start) · [Example](#example) · [Verification](#verification) · [Upstream](#upstream--license)
 
-Knowing whether you made a right choice when it comes to animations, or design in general, is hard. These skills aim to help you get to those right decisions faster.
+</div>
 
-They are based on my years of experience working at companies like Vercel and Linear.
+---
 
-All the skills here are a side-effect of domain-expertise. AI doesn’t replace such expertise, it amplifies what you can get out of it and makes you way better relative to others.
+## What this skill helps you do
 
-So learn to code, design, or develop expertise in any other field. It’s extremely valuable.
+Find expensive animated properties, busy-main-thread motion and per-frame rendering. Apply a focused fix when requested, or produce a scoped audit. Preserve geometry, layout, keyboard/pointer behavior, focus and reduced-motion preferences.
 
-You can stay up to date with my skills here:
+| Developer task | Skill behavior |
+| :--- | :--- |
+| Diagnose stutters | Explain code/trace evidence and the suspected rendering cost |
+| Fix a component | Keep intended design and interactions while changing the costly mechanism |
+| Review motion | Separate static risks from measured performance |
 
-[Sign Up To The Newsletter](https://aiforui.dev/skills)
+## Quick start
 
-## Install
+Copy the entire skills/animation-performance folder into your project's .agents/skills directory. The optional installer requires Python 3.10+ and an existing project directory:
 
-```bash
-npx skills@latest add emilkowalski/skills
+```text
+git clone https://github.com/gkmraju/codex-skill-animation-performance
+cd codex-skill-animation-performance
+python -B skills/animation-performance/scripts/install.py --project PATH_TO_EXISTING_PROJECT
 ```
 
-## Why use it?
+The installer refuses an existing skill instead of overwriting it. Restart Codex if a newly installed skill is not discovered. Browser tools are optional; use the tools available in your project.
 
-Agents don’t have great taste
+Invoke in Codex:
 
-I have seen plenty of times that agents don’t pick the right ingredients for an animation. An `ease-in` easing for an enter animation when it’s supposed to be `ease-out` ([here’s why](https://emilkowal.ski/ui/7-practical-animation-tips#4.-choose-the-right-easing)). Or they choose a solid border instead of a semi-transparent shadow for your UIs.
+```text
+$animation-performance Fix this card's janky movement, preserving its final layout, keyboard behavior and reduced-motion preference.
+```
 
-All these small things compound and make your interface either amazing, or just... not that great.
+## Example
 
-As explained in [Agents with Taste](https://emilkowal.ski/ui/agents-with-taste), these skills list all the little mistakes agents can potentially make and explain how to fix them.
+The [before fixture](skills/animation-performance/examples/before.html) animates an interactive card through a layout property and transition:all. The [after fixture](skills/animation-performance/examples/after.html) demonstrates the correction exercised during independent evaluation.
 
-This is your shortcut to great interfaces. A shortcut to stand out in a sea of slop.
+These are controlled examples. Desktop/headless observations do not establish real-phone smoothness or an application-wide frame rate.
 
-## Reference
+## How it works
 
-- **[emil-design-eng](./skills/emil-design-eng/SKILL.md)** — The main skill that consists of mostly animation, but also some design advice.
-- **[animate](./skills/animate/SKILL.md)** — Builds an animation from scratch while choosing the correct curve, duration, properties, and so on.
-- **[animate-expo](./skills/animate-expo/SKILL.md)** — The same bar, for React Native and Expo: gestures, sheets, haptics, screen transitions, and keeping motion off the JS thread.
-- **[review-animations](./skills/review-animations/SKILL.md)** — Review your animations in a strict way, based on my rules.
-- **[improve-animations](./skills/improve-animations/SKILL.md)** — Audit all the animations in your codebase and get prioritized, self-contained plans that any agent can execute.
-- **[find-animation-opportunities](./skills/find-animation-opportunities/SKILL.md)** — Search your UI for places that would genuinely benefit from motion, while also telling you what not to animate.
-- **[animation-performance](./skills/animation-performance/SKILL.md)** — Fix animations that drop frames. It includes lots of subtle issues that most agents miss.
-- **[animation-vocabulary](./skills/animation-vocabulary/SKILL.md)** — Get better animations from an AI by telling it exactly what you want by using the right words.
-- **[apple-design](./skills/apple-design/SKILL.md)** — Apple’s principles for interface design and fluid motion, distilled from their WWDC design talks and translated for the web.
-- **[write-swift](./skills/write-swift/SKILL.md)** — Write modern Swift. Includes: value types, Swift 6 concurrency, generics, performance, and Swift Testing.
-- **[pick-ui-library](./skills/pick-ui-library/SKILL.md)** — Have your agent pick the right library for the task based on libraries I use and trust, instead of letting AI hand-roll a toast component or install an abandoned package.
-- **[prototype](./skills/prototype/SKILL.md)** — Build multiple different versions of a UI piece you describe and go through them using a switcher.
-- **[mobile-native](./skills/mobile-native/SKILL.md)** — Make your web app feel native on a phone: sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, safe areas, and the rest of the small fixes that separate a website from an app.
-- **[break-ui](./skills/break-ui/SKILL.md)** — Try to break the UI you built with worst-case data: long names, unusual emails, one-letter names, huge counts, empty lists, long labels.
-- **[ask-sonner](./skills/ask-sonner/SKILL.md)** — Your guide to working with [Sonner](https://sonner.emilkowal.ski), my toast library. Contains setup, styling, recipes, and fixes for the most common issues.
+```mermaid
+flowchart LR
+    A["Inspect component and reproduction"] --> B["Identify costly motion"]
+    B --> C["Apply compatible fix"]
+    C --> D["Exercise interactions and motion preference"]
+    D --> E["Report evidence and limits"]
+```
+
+## Verification
+
+```text
+python -B -m unittest discover -s skills/animation-performance/tests -v
+npm install --no-save playwright@1.62.1
+npx playwright install chromium
+node skills/animation-performance/tests/browser.cjs
+```
+
+The installer checks complete copying, missing-project rejection and overwrite protection. Three browser scenarios exercise geometry, pointer/keyboard activation, focus and reduced motion, while recording scoped layout metrics. CI runs these checks; consult Actions for actual outcomes.
+
+See [evaluation](docs/evaluation.md) for native Codex discovery, independent instruction-following results and measurement limits. Optional Playwright developer tests are separate from using this instruction skill.
+
+## Scope
+
+Web CSS/JavaScript/React animation diagnosis. Keep existing libraries and design choices unless a change is needed. No guaranteed GPU acceleration, FPS target, React Native diagnosis or physical-device acceptance. Source-only reviews disclose missing runtime evidence.
+
+## Upstream & license
+
+Adapted from [Emil Kowalski's animation-performance skill](https://github.com/emilkowalski/skills/blob/2d228630ba1446365f614a108cb8252f1feda202/skills/animation-performance/SKILL.md).
+
+Source revision: 2d228630ba1446365f614a108cb8252f1feda202 · [MIT notice](LICENSE).
+
+Copyright (c) 2026 Emil Kowalski. Maintained by gkmraju with disclosed Codex assistance. No source-author endorsement or measured adoption is claimed.
+
+[Provenance](provenance.json) · [Attribution](UPSTREAM.md) · [Migration](docs/migration.md) · [Compatibility](docs/compatibility.md) · [Evaluation](docs/evaluation.md)
